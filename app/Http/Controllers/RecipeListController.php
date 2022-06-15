@@ -86,7 +86,6 @@ class RecipeListController extends Controller
 
     public function deleteList($id)
     {
-
         $userList = user_list::find($id);
         if (is_null($userList)) {
             return $this->errorHandler($userList, 'List not found');
