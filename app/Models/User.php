@@ -41,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function user_lists()
+    {
+        return $this->hasMany(Recipelist::class);
+    }
 }

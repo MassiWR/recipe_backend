@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,13 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('user_list', function (Blueprint $table) {
             $table->id();
-            /* $table->unsignedBigInteger('log_id'); */
-            $table->foreignId('log_id')->constrained('logs')->onDelete('cascade');
-            $table->string('recipe_api_id');
-            $table->string('label');
-            $table->text('photo_url');
+            $table->string('title');
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('user_list');
     }
 };
