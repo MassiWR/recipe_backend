@@ -60,13 +60,11 @@ class AuthController extends Controller
         $success['token'] = $user->createToken('mytoken')->plainTextToken;
         $success['name'] = $user->name;
         $success['email'] = $user->email;
+        $success['user_id'] = $user->id;
 
         return $this->getResponse($success);
 
     }
-
-
-
 
 
     // login controller function
@@ -95,8 +93,8 @@ class AuthController extends Controller
 
         $response = [
             'user' => $user,
-            'token' => $token
-        ];
+            'token' => $token,
+            'user_id' => $user->id];
 
         return response()->json($response, 200);
     }

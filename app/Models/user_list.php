@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class user_list extends Model
+class User_list extends Model
 {
     use HasFactory;
+
     protected $table = 'user_list';
     protected $fillable = ['user_id', 'title'];
 
-    public function user()
+    public function recipes()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Recipe::class);
     }
 }
