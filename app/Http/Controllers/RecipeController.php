@@ -7,14 +7,24 @@ use App\Models\Recipe;
 
 class RecipeController extends Controller
 {
-    public function getAllRecipies($listid)
+
+    public function getResponse($data)
     {
-        $recipies = Recipe::where('log_id', $listid)->get()->toJson(JSON_PRETTY_PRINT);
-        return response($recipies, 200);
+        $response = [
+            'success' => true,
+            'data' => $data,
+
+        ];
+        return response()->json($response, 200);
     }
 
+    public function getList($id)
+    {
+        $recipes = Recipe::all()->where('user_list_id', $id);
+        return $this->getResponse($recipes);
+    }
 
-    public function createRecipe(Request $request)
+    public function create(Request $request)
     {
         if (Recipe::where('recipe_id', $request->recipe_id)->where('user_list_id', $request->user_list_id)->exists()) {
             return response()->json([
@@ -37,8 +47,7 @@ class RecipeController extends Controller
 
     }
 
-
-    public function deleteRecipe($id)
+    public function delete($id)
     {
         if (Recipe::where('id', $id)->exists()) {
             $recipe = Recipe::find($id);
