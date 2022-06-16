@@ -54,7 +54,6 @@ class RecipeListController extends Controller
             ], 404);
         }
 
-
     }
 
     public function createList(Request $request)
