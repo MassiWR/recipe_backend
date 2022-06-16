@@ -81,6 +81,34 @@ class RecipeListController extends Controller
         }
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User_list  $recipeList
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, User_list $recipeList)
+    {
+        $validator = Validator::make($request->only('title'), [
+            'title' => 'required|string|between:2,50'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 200);
+        }
+
+        $recipeList = $recipeList->update([
+            'title' => $request->title
+        ]);
+
+        // list updated, return success response
+        return response()->json([
+            'success' => true,
+            'message' => 'List title updated.',
+            'list' => $recipeList
+        ], 201);
+    }
 
 
     public function deleteList($id)
