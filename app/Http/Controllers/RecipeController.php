@@ -34,12 +34,13 @@ class RecipeController extends Controller
         else {
             $recipe = new Recipe;
             $recipe->recipe_id = $request->recipe_id;
-            $recipe->photo_url = $request->photo_url;
+            $recipe->photo_url = $request->photo;
             $recipe->user_list_id = $request->user_list_id;
+            $recipe->title = $request->title;
             $recipe->save();
 
             return response()->json([
-                "message" => "Recipe record has been created"
+                "message" => "Recipe created"
             ]);
         }
 
@@ -64,5 +65,6 @@ class RecipeController extends Controller
     }
 
 
-    
+
+
 }
