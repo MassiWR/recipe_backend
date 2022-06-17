@@ -18,7 +18,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('recipies/{id}', [RecipeController::class , 'delete']);
     // list
     Route::get('list/{listid}', [RecipeListController::class , 'getList']);
-    Route::get('lists', [RecipeListController::class , 'index']);
+
+    Route::get('lists/{id}', [RecipeListController::class , 'index']);
     Route::post('list', [RecipeListController::class , 'createList']);
     Route::put('list/{id}', [RecipeListController::class , 'update']);
     Route::delete('list/{id}', [RecipeListController::class , 'deleteList']);
