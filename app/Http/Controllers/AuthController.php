@@ -57,7 +57,7 @@ class AuthController extends Controller
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
-        $success['token'] = $user->createToken('mytoken')->plainTextToken;
+        $success['token'] = $user->createToken('token')->plainTextToken;
         $success['name'] = $user->name;
         $success['email'] = $user->email;
         $success['user_id'] = $user->id;
@@ -89,7 +89,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('myToken')->plainTextToken;
+        $token = $user->createToken('token')->plainTextToken;
 
         $response = [
             'user' => $user,
