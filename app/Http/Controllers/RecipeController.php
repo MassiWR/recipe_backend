@@ -34,7 +34,6 @@ class RecipeController extends Controller
         else {
             $recipe = new Recipe;
             $recipe->recipe_id = $request->recipe_id;
-            $recipe->label = $request->label;
             $recipe->photo_url = $request->photo_url;
             $recipe->user_list_id = $request->user_list_id;
             $recipe->save();

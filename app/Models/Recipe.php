@@ -10,7 +10,7 @@ class Recipe extends Model
     use HasFactory;
 
     protected $table = 'recipe';
-    protected $fillable = ['recipe_id', 'label', 'photo_url', 'user_list_id'];
+    protected $fillable = ['recipe_id', 'photo_url', 'user_list_id'];
 
     public function user_list()
     {
