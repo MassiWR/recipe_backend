@@ -37,7 +37,7 @@ class RecipeListController extends Controller
 
     public function index($userId)
     {
-        $userList = user_list::all()->where('user_id', $userId);
+        $userList = User_list::all()->where('user_id', $userId);
 
         return $this->responseHandler(($userList), 'User lists retrieved');
     }
