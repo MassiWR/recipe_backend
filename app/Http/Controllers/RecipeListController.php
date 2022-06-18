@@ -57,14 +57,24 @@ class RecipeListController extends Controller
 
     public function createList(Request $request)
     {
-        $list = new UserList();
-        $list->user_id = $request->user_id;
-        $list->title = $request->title;
-        $list->save();
+        $validator = Validator::make($request->only('title'), [
+            'title' => 'required|string|between:2,50'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 200);
+        }
+
+        // request is valid, create new list
+        $recipeList = auth()->user()->UserList()->create([
+            'title' => $request->title
+        ]);
 
         return response()->json([
-            "message" => "List record has been created"
-        ], 200);
+            'success' => true,
+            'message' => 'List created successfully.',
+            'list' => $recipeList
+        ], 201);
     }
 
     public function getAllLists($user_id)
