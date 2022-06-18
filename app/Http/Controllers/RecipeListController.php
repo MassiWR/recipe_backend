@@ -65,7 +65,7 @@ class RecipeListController extends Controller
             return response()->json($validator->errors(), 200);
         }
         // request is valid, create new list
-        $recipeList = auth()->user()->recipeLists()->create([
+        $recipeList = auth()->user()->user_list()->create([
             'title' => $request->title
         ]);
 
