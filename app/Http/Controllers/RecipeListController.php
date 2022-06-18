@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\user_list;
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\User_list;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -71,7 +72,7 @@ class RecipeListController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'List created successfully.',
+            'message' => 'List created successfully postman.',
             'list' => $recipeList
         ], 201);
     }
