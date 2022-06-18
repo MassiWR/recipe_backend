@@ -10,7 +10,7 @@ class User_list extends Model
     use HasFactory;
 
     protected $table = 'user_list';
-    protected $fillable = ['user_id', 'title'];
+    protected $fillable = ['title'];
 
     public function recipes()
     {
