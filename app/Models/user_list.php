@@ -16,8 +16,5 @@ class User_list extends Model
     {
         return $this->hasMany(Recipe::class);
     }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+
 }
