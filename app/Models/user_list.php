@@ -16,5 +16,8 @@ class User_list extends Model
     {
         return $this->hasMany(Recipe::class);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 02114e7 (add eloquent relation)
 }
