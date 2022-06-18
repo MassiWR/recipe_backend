@@ -12,8 +12,8 @@ class Recipe extends Model
     protected $table = 'recipe';
     protected $fillable = ['recipe_id', 'title', 'photo', 'user_list_id'];
 
-    public function user_list()
+    public function UserList()
     {
-        return $this->belongsToMany(User_list::class);
+        return $this->belongsToMany(UserList::class);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\User_list;
+use App\Models\UserList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -37,14 +37,14 @@ class RecipeListController extends Controller
 
     public function index($userId)
     {
-        $userList = User_list::all()->where('user_id', $userId);
+        $userList = UserList::all()->where('user_id', $userId);
         return $userList;
     }
 
     public function getList($id)
     {
-        if (user_list::where('id', $id)->exists()) {
-            $list = user_list::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
+        if (UserList::where('id', $id)->exists()) {
+            $list = UserList::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
             return response($list, 200);
         }
         else {
@@ -57,7 +57,7 @@ class RecipeListController extends Controller
 
     public function createList(Request $request)
     {
-        $list = new user_list();
+        $list = new UserList();
         $list->user_id = $request->user_id;
         $list->title = $request->title;
         $list->save();
@@ -69,8 +69,8 @@ class RecipeListController extends Controller
 
     public function getAllLists($user_id)
     {
-        if (user_list::where('user_id', $user_id)->exists()) {
-            $lists = user_list::where('user_id', $user_id)->get()->toJson(JSON_PRETTY_PRINT);
+        if (UserList::where('user_id', $user_id)->exists()) {
+            $lists = UserList::where('user_id', $user_id)->get()->toJson(JSON_PRETTY_PRINT);
             return response($lists, 200);
         }
         else {
@@ -84,7 +84,7 @@ class RecipeListController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User_list  $recipeList
+     * @param  \App\Models\UserList  $recipeList
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, User_list $recipeList)
@@ -112,7 +112,7 @@ class RecipeListController extends Controller
 
     public function deleteList($id)
     {
-        $userList = user_list::find($id);
+        $userList = UserList::find($id);
         if (is_null($userList)) {
             return $this->errorHandler($userList, 'List not found');
         }

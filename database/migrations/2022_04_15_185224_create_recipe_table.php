@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('recipe', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('user_list_id')->constrained('user_list')->onDelete('cascade');
+            $table->foreignId('user_list_id')->constrained('UserList')->onDelete('cascade');
             $table->string('recipe_id');
             $table->text('photo');
             $table->timestamps();

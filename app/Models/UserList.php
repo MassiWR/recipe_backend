@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User_list extends Model
+class UserList extends Model
 {
     use HasFactory;
 
-    protected $table = 'user_list';
+    protected $table = 'UserList';
     protected $fillable = ['user_id', 'title'];
 
     public function recipes()
