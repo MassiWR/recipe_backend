@@ -67,6 +67,12 @@ class AuthController extends Controller
     }
 
 
+    public function getUser()
+    {
+        return auth()->user();
+
+    }
+
     // login controller function
     public function login(Request $request)
     {
@@ -99,15 +105,4 @@ class AuthController extends Controller
         return response()->json($response, 200);
     }
 
-
-    // log out function
-
-    public function logout(Request $request)
-    {
-        auth()->user()->tokens()->delete();
-
-        return [
-            'message' => 'logged out'
-        ];
-    }
 }

@@ -4,24 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\UserList;
 
 class RecipeController extends Controller
 {
 
-    public function getResponse($data)
-    {
-        $response = [
-            'success' => true,
-            'data' => $data,
-
-        ];
-        return response()->json($response, 200);
-    }
-
     public function getList($id)
     {
-        $recipes = Recipe::all()->where('user_list_id', $id);
-        return $this->getResponse($recipes);
+        $recipes = Recipe::where('user_list_id', $id)->get();
+        return $recipes;
     }
 
     public function create(Request $request)
@@ -40,7 +31,7 @@ class RecipeController extends Controller
             $recipe->save();
 
             return response()->json([
-                "message" => "Recipe created"
+                "message" => "{$recipe->title} added to list"
             ]);
         }
 

@@ -12,16 +12,24 @@ Route::post('/login', [AuthController::class , 'login']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
+    Route::get('user-profile', [AuthController::class , 'getUser']);
     Route::post('logout', [AuthController::class , 'logout']);
-    Route::get('recipies/{listid}', [RecipeController::class , 'getList']);
-    Route::post('recipies/{id}', [RecipeController::class , 'create']);
-    Route::delete('recipies/{id}', [RecipeController::class , 'delete']);
-    // list
-    Route::get('list/{listid}', [RecipeListController::class , 'getList']);
 
-    Route::get('lists/{id}', [RecipeListController::class , 'index']);
+
+    Route::get('recipies/{listid}', [RecipeController::class , 'getList']);
+    // add a recipe to a list
+    Route::post('recipies', [RecipeController::class , 'create']);
+    // delete a recipe from a list
+    Route::delete('recipies/{id}', [RecipeController::class , 'delete']);
+    // Get a specific list of a user by id
+    Route::get('list/{listid}', [RecipeListController::class , 'getList']);
+    // get all lists of a user by user_id
+    Route::get('lists/{id}', [RecipeListController::class , 'getAllLists']);
+    // create a list
     Route::post('list', [RecipeListController::class , 'createList']);
-    Route::put('list/{id}', [RecipeListController::class , 'update']);
+    // update a list
+    Route::put('list/{list_id}', [RecipeListController::class , 'update']);
+    // delete a list
     Route::delete('list/{id}', [RecipeListController::class , 'deleteList']);
 });
 

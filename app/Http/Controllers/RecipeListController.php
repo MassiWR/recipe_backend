@@ -35,7 +35,7 @@ class RecipeListController extends Controller
         return response()->json($res, $code);
     }
 
-    public function index($userId)
+    public function getAllLists($userId)
     {
         $userList = UserList::all()->where('user_id', $userId);
         return $userList;
@@ -44,15 +44,13 @@ class RecipeListController extends Controller
     public function getList($id)
     {
         if (UserList::where('id', $id)->exists()) {
-            $list = UserList::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
-            return response($list, 200);
+            $list = UserList::where('id', $id)->get();
+            return $list;
         }
         else {
-            return response()->json([
-                "message" => "List not found"
-            ], 404);
-        }
+            return "List not found";
 
+        }
     }
 
     public function createList(Request $request)
@@ -70,23 +68,15 @@ class RecipeListController extends Controller
             'title' => $request->title
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'List created successfully.',
-            'list' => $recipeList
-        ], 201);
-    }
-
-    public function getAllLists($user_id)
-    {
-        if (UserList::where('user_id', $user_id)->exists()) {
-            $lists = UserList::where('user_id', $user_id)->get()->toJson(JSON_PRETTY_PRINT);
-            return response($lists, 200);
+        if ($recipeList) {
+            return response()->json([
+                "message" => "List {$recipeList->title} created"
+            ], 200);
         }
         else {
             return response()->json([
-                "message" => "Users list are empty"
-            ]);
+                "message" => "{$recipeList->title} could not be created"
+            ], 401);
         }
     }
 
@@ -97,7 +87,7 @@ class RecipeListController extends Controller
      * @param  \App\Models\UserList  $recipeList
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, User_list $recipeList)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->only('title'), [
             'title' => 'required|string|between:2,50'
@@ -107,16 +97,21 @@ class RecipeListController extends Controller
             return response()->json($validator->errors(), 200);
         }
 
-        $recipeList = $recipeList->update([
+        $recipeList = UserList::find($id)->update([
             'title' => $request->title
         ]);
 
-        // list updated, return success response
-        return response()->json([
-            'success' => true,
-            'message' => 'List title updated.',
-            'list' => $recipeList
-        ], 201);
+        if ($recipeList) {
+            return response()->json([
+                "message" => "List title updated"
+            ], 201
+            );
+        }
+        else {
+            return response()->json([
+                "message" => "List could not be update"
+            ], 401);
+        }
     }
 
 
@@ -128,6 +123,15 @@ class RecipeListController extends Controller
         }
         $userList->delete();
 
-        return $this->responseHandler([], 'List deleted');
+        if ($userList) {
+            return response()->json([
+                "message" => "{$userList->title} deleted"
+            ], 201);
+        }
+        else {
+            return response()->json([
+                "message" => "{$userList->title} could not be deleted"
+            ], 401);
+        }
     }
 }
