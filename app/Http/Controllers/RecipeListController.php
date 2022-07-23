@@ -45,9 +45,7 @@ class RecipeListController extends Controller
     {
         if (UserList::where('id', $id)->exists()) {
             $list = UserList::where('id', $id)->get();
-            return response()->json([
-                "data": $list;
-            ], 200);
+            return $list;
         }
         else {
             return "List not found";
