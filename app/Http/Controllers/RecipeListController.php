@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 
 class RecipeListController extends Controller
@@ -37,7 +38,7 @@ class RecipeListController extends Controller
 
     public function getAllLists($userId)
     {
-        $userList = UserList::all()->where('user_id', $userId);
+        $userList = Auth::user()->UserList()->get()->where('user_id', $userId);
         return $userList;
     }
 
