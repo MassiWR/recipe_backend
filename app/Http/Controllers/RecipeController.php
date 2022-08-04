@@ -10,7 +10,7 @@ class RecipeController extends Controller
 {
 
     public function getList($id)
-    {
+    {   
         $recipes = Recipe::where('user_list_id', $id)->get();
         return $recipes;
     }
