@@ -11,18 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeListController extends Controller
 {
-    //is object the right return type of the function?
-    public function responseHandler($result, $msg): object
-    {
-        $res = [
-            'success' => true,
-            'data' => $result,
-            'message' => $msg
-        ];
-
-        return response()->json($res, 200);
-    }
-
+   
     public function errorHandler($error, $errorMsg = [], $code = 404): object
     {
         $res = [
